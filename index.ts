@@ -1,13 +1,14 @@
 // Класс игрока с модификаторами private, public, protected
 // public - значение по умолчанию
-// private - для внутри конкретного класса
+// private - для использования внутри конкретного класса
+// #(private) - тоже приватное свойство, но с помощью спец символа
 // protected - приватное свойство распространяемое на потомков
 class Player {
     // свойства игрока
-    private login: string;
-    private _password: string;
-    public server: string;
-    protected consent: boolean;
+    #login;
+    _password;
+    server;
+    consent;
 
     // getter
     get password() {
@@ -21,6 +22,8 @@ class Player {
     }
 }
 
+const test = new Player();
+
 // Наследования Player (extends)
 class CompetitivePlayer extends Player {
     rank: number;
@@ -33,7 +36,7 @@ class CompetitivePlayer extends Player {
 // Экземпляр нового игрока
 const player = new Player();
 // Изменяем значение пароля с помощью setterа
-player.password = "12345qaz";
+player._password = "12345qaz";
 // Свойство login станет недоступной тк оно приватное
 // player.login = "user23912931";
 
