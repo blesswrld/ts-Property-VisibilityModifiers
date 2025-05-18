@@ -1,42 +1,84 @@
+// Функция для установления значения статического свойство
+function setName() {
+    return "COD";
+}
+
 // Класс игрока с модификаторами private, public, protected
 // public - значение по умолчанию
 // private - для использования внутри конкретного класса
 // #(private) - тоже приватное свойство, но с помощью спец символа
 // protected - приватное свойство распространяемое на потомков
 class Player {
+    // Статическое свойство (static) для вызова в дальнейшем
+    // static game: string = "COD";
+    // Приватной статическое свойство (static) для вызова внутри класса
+    private static game: string = "COD";
+
     // свойства игрока
-    #login;
-    _password;
-    server;
-    consent;
+    // #login: string;
+    private _password: string | undefined;
+    public server: string | undefined;
+    protected consent: boolean | undefined;
+
+    // Статичный блок
+    static {
+        Player.game = setName();
+    }
+
+    // Приватный конструктор (наследование будет невозможно)
+    // private constructor() {}
+
+    // protected constructor() {}
+
+    // Конструктор
+    // constructor(game: string) {
+    //     // Обращаемся к свойству game
+    //     Player.game = game;
+    // }
 
     // getter
-    get password() {
-        return this._password;
-    }
+    // get password() {
+    //     return this._password;
+    // }
 
     // setter
     set password(newPass: string) {
         // Validation
         this._password = newPass;
     }
-}
 
-const test = new Player();
-
-// Наследования Player (extends)
-class CompetitivePlayer extends Player {
-    rank: number;
-
-    private isConsented() {
-        this.consent ? "yes" : "no";
+    // Статический метод для вызова свойства game
+    static getGameName() {
+        // Вызов свойства
+        return Player.game;
     }
 }
 
+new Player();
+new Player();
+new Player();
+console.log(Player.getGameName());
+
+// Самый известный статический метод Math.random()
+// Math.random();
+// new Math();
+
+// Вызов свойства game
+// Player.game;
+
+// Наследования Player (extends)
+// class CompetitivePlayer extends Player {
+//     rank: number;
+
+//     private isConsented() {
+//         this.consent ? "yes" : "no";
+//     }
+// }
+
 // Экземпляр нового игрока
-const player = new Player();
-// Изменяем значение пароля с помощью setterа
-player._password = "12345qaz";
+// const player = new Player();
+// // Изменяем значение пароля с помощью setterа
+// player._password = "12345qaz";
 // Свойство login станет недоступной тк оно приватное
 // player.login = "user23912931";
 
